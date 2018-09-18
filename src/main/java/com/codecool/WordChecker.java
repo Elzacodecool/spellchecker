@@ -54,12 +54,13 @@ public class WordChecker {
    */
 	public ArrayList<String> getSuggestions(String word) {
 	    ArrayList<String> suggestions = new ArrayList<>();
-	    suggestions.addAll(getSuggestionsSwappingCharacter(word));
-        suggestions.addAll(getSuggestionsAddedCharacter(word));
+	    suggestions.addAll(getSuggestionsWithSwappingCharacter(word));
+        suggestions.addAll(getSuggestionsWithAddedCharacter(word));
+        suggestions.addAll(getSuggestionsWithDeletedCharacter(word));
 	    return suggestions;
 	}
 
-	private ArrayList<String> getSuggestionsSwappingCharacter(String word) {
+	private ArrayList<String> getSuggestionsWithSwappingCharacter(String word) {
 	    ArrayList<String> words = new ArrayList<>();
 	    char[] wordAsChars = word.toCharArray();
 	    StringBuilder stringBuilder;
@@ -82,7 +83,7 @@ public class WordChecker {
         return words;
     }
 
-    private ArrayList<String> getSuggestionsAddedCharacter(String word) {
+    private ArrayList<String> getSuggestionsWithDeletedCharacter(String word) {
 	    ArrayList<String> words = new ArrayList<>();
 	    char[] wordAsChars = word.toCharArray();
 	    StringBuilder stringBuilder;
@@ -99,6 +100,38 @@ public class WordChecker {
 	            words.add(newWord);
             }
         }
+        return words;
+    }
+
+    private ArrayList<String> getSuggestionsWithAddedCharacter(String word) {
+	    ArrayList<String> words = new ArrayList<>();
+	    String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	    char[] wordAsChars = word.toCharArray();
+	    StringBuilder stringBuilder;
+	    String newWord;
+	    for (char ch : alphabet.toCharArray()) {
+            for (int i = 0; i < word.length(); i++) {
+                stringBuilder = new StringBuilder();
+                for (int j = 0; j < word.length(); j++) {
+                    if (j == i) {
+                        stringBuilder.append(ch);
+                    }
+                    stringBuilder.append(wordAsChars[j]);
+                }
+                newWord = stringBuilder.toString();
+                if (wordExists(newWord)) {
+                    words.add(newWord);
+                }
+            }
+	    }
+
+	    for (char ch : alphabet.toCharArray()) {
+	        newWord = word + ch;
+	        if (wordExists(newWord)) {
+	            words.add(newWord);
+            }
+        }
+
         return words;
     }
 
