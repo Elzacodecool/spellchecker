@@ -20,6 +20,7 @@ import java.util.ArrayList;
  */
 
 public class WordChecker {
+    private WordList wordList;
 	/**
    * Constructor that initializes a new WordChecker with a given WordList.
    *
@@ -27,7 +28,7 @@ public class WordChecker {
    * @see WordList
    */
 	public WordChecker(WordList wordList) {
-
+        this.wordList = wordList;
 	}
 	
 
@@ -39,7 +40,7 @@ public class WordChecker {
    * @return bollean indicating if the word was found or not.
    */
 	public boolean wordExists(String word) {
-		return false;
+	    return wordList.lookup(word);
 	}
 
 
@@ -51,8 +52,33 @@ public class WordChecker {
    * @param word String to check against
    * @return A list of plausible matches
    */
-	public ArrayList getSuggestions(String word) {
-		return new ArrayList();
+	public ArrayList<String> getSuggestions(String word) {
+	    ArrayList<String> suggestions = new ArrayList<>();
+	    suggestions.addAll(getSuggestionsSwappingCharacter(word));
+	    return suggestions;
 	}
+
+	private ArrayList<String> getSuggestionsSwappingCharacter(String word) {
+	    ArrayList<String> words = new ArrayList<>();
+	    char[] wordAsChars = word.toCharArray();
+	    StringBuilder stringBuilder;
+	    String newWord;
+	    for (int i = 0; i < word.length() - 1; i++) {
+	        stringBuilder = new StringBuilder();
+	        for (int j = 0; j < word.length(); j++) {
+	            if (j == i) {
+	                stringBuilder.append(wordAsChars[j + 1]).append(wordAsChars[j]);
+	                j++;
+                } else {
+	                stringBuilder.append(wordAsChars[j]);
+                }
+            }
+            newWord = stringBuilder.toString();
+	        if (wordExists(newWord)) {
+	            words.add(newWord);
+            }
+        }
+        return words;
+    }
 
 }
