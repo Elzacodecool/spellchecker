@@ -35,10 +35,4 @@ class HashTableTest {
 
         assertFalse(hashTable.lookup(text));
     }
-
-    @Test
-    void remove_illegalArgument() {
-        assertThrows(IllegalArgumentException.class, () -> hashTable.remove("test"));
-    }
-
 }
