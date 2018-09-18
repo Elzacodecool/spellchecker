@@ -55,6 +55,7 @@ public class WordChecker {
 	public ArrayList<String> getSuggestions(String word) {
 	    ArrayList<String> suggestions = new ArrayList<>();
 	    suggestions.addAll(getSuggestionsSwappingCharacter(word));
+        suggestions.addAll(getSuggestionsAddedCharacter(word));
 	    return suggestions;
 	}
 
@@ -71,6 +72,26 @@ public class WordChecker {
 	                j++;
                 } else {
 	                stringBuilder.append(wordAsChars[j]);
+                }
+            }
+            newWord = stringBuilder.toString();
+	        if (wordExists(newWord)) {
+	            words.add(newWord);
+            }
+        }
+        return words;
+    }
+
+    private ArrayList<String> getSuggestionsAddedCharacter(String word) {
+	    ArrayList<String> words = new ArrayList<>();
+	    char[] wordAsChars = word.toCharArray();
+	    StringBuilder stringBuilder;
+	    String newWord;
+	    for (int i = 0; i < word.length() - 1; i++) {
+	        stringBuilder = new StringBuilder();
+	        for (int j = 0; j < word.length(); j++) {
+	            if (j != i) {
+                    stringBuilder.append(wordAsChars[j]);
                 }
             }
             newWord = stringBuilder.toString();
