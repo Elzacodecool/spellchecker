@@ -26,7 +26,7 @@ public class HashTable {
     */
 	public HashTable(int tableSize, StringHasher hasher) {
 	    this.tableSize = tableSize;
-        this.elements = new Node[tableSize];
+        this.elements = new Node[this.tableSize];
         this.hasher = hasher;
 	}
 
@@ -86,8 +86,13 @@ public class HashTable {
 	public void remove(String s) {
   	    int index = calculateIndex(s);
 	    Node node = elements[index];
+
 	    if (node == null) {
 	        return;
+        }
+        if (node.getValue().equals(s)) {
+            elements[index] = node.getNext();
+            return;
         }
 	    while (node.getNext() != null) {
 	        if (node.getNext().getValue().equals(s)) {
