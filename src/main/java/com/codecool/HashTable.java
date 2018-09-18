@@ -13,6 +13,9 @@ package com.codecool;
 import com.codecool.hasher.StringHasher;
 
 public class HashTable {
+    private int tableSize;
+	private StringHasher hasher;
+	private Node[] elements;
 	/**
     * The constructor is given a table size (i.e. how big to make the array)
     * and a StringHasher, which is used to hash the strings.
@@ -22,7 +25,9 @@ public class HashTable {
     * @see StringHasher
     */
 	public HashTable(int tableSize, StringHasher hasher) {
-
+	    this.tableSize = tableSize;
+        this.elements = new Node[tableSize];
+        this.hasher = hasher;
 	}
 
 
@@ -33,7 +38,18 @@ public class HashTable {
     * @param s String to add
     */
 	public void add(String s) {
+        int index =  calculateIndex(s);
 
+	    Node node = elements[index];
+	    Node nodeToAdd = new Node(hasher.hash(s), s);
+	    if (node == null) {
+	        elements[index] = nodeToAdd;
+        } else {
+	        while (node.getNext() != null) {
+	            node = node.getNext();
+            }
+            node.setNext(nodeToAdd);
+        }
 	}
 	
 
@@ -44,8 +60,21 @@ public class HashTable {
     * @param s String to look up
     */
 	public boolean lookup(String s)  {
+	    int index = calculateIndex(s);
+	    Node node = elements[index];
+	    while (node != null) {
+	        if (node.getValue().equals(s)) {
+	            return true;
+            }
+            node = node.getNext();
+        }
         return false;
 	}
+
+	private int calculateIndex(String s) {
+        int index =  hasher.hash(s) % tableSize;
+        return index < 0 ? - index : index;
+    }
 	
 
 	/**
@@ -55,6 +84,17 @@ public class HashTable {
     * @param s String to remove
     */
 	public void remove(String s) {
-
+  	    int index = calculateIndex(s);
+	    Node node = elements[index];
+	    if (node == null) {
+	        return;
+        }
+	    while (node.getNext() != null) {
+	        if (node.getNext().getValue().equals(s)) {
+	            node.setNext(node.getNext().getNext());
+	            return;
+            }
+            node = node.getNext();
+        }
 	}
 }
