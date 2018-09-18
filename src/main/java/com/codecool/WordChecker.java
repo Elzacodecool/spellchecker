@@ -57,6 +57,7 @@ public class WordChecker {
 	    suggestions.addAll(getSuggestionsWithSwappingCharacter(word));
         suggestions.addAll(getSuggestionsWithAddedCharacter(word));
         suggestions.addAll(getSuggestionsWithDeletedCharacter(word));
+        suggestions.addAll(getSuggestionsWithReplacedCharacter(word));
 	    return suggestions;
 	}
 
@@ -141,14 +142,16 @@ public class WordChecker {
 	    char[] wordAsChars = word.toCharArray();
 	    StringBuilder stringBuilder;
 	    String newWord;
+
 	    for (char ch : alphabet.toCharArray()) {
             for (int i = 0; i < word.length(); i++) {
                 stringBuilder = new StringBuilder();
                 for (int j = 0; j < word.length(); j++) {
                     if (j == i) {
                         stringBuilder.append(ch);
+                    } else  {
+                        stringBuilder.append(wordAsChars[j]);
                     }
-                    stringBuilder.append(wordAsChars[j]);
                 }
                 newWord = stringBuilder.toString();
                 if (wordExists(newWord)) {
@@ -156,13 +159,6 @@ public class WordChecker {
                 }
             }
 	    }
-
-	    for (char ch : alphabet.toCharArray()) {
-	        newWord = word + ch;
-	        if (wordExists(newWord)) {
-	            words.add(newWord);
-            }
-        }
 
         return words;
     }
