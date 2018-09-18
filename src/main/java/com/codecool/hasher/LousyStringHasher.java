@@ -9,7 +9,9 @@
  * those characters, hashes to the same place (i.e. hash("alex") ==
  * hash("xela")).  Consider why this is such a poor strategy.
  */
-package com.codecool;
+package com.codecool.hasher;
+
+import com.codecool.hasher.StringHasher;
 
 public class LousyStringHasher implements StringHasher {
 	public int hash(String s) {

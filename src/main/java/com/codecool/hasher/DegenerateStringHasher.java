@@ -8,7 +8,9 @@
  * the performance of the hash table to generate to that of an unsorted linked
  * list.
  */
-package com.codecool;
+package com.codecool.hasher;
+
+import com.codecool.hasher.StringHasher;
 
 public class DegenerateStringHasher implements StringHasher {
 	public int hash(String s) {

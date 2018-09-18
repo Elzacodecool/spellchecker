@@ -1,4 +1,4 @@
-package com.codecool;
+package com.codecool.hasher;
 
 public interface StringHasher {
 	/** 

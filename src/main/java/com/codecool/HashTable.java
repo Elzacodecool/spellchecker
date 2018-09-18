@@ -10,6 +10,8 @@
  */
 package com.codecool;
 
+import com.codecool.hasher.StringHasher;
+
 public class HashTable {
 	/**
     * The constructor is given a table size (i.e. how big to make the array)

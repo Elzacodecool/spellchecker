@@ -1,5 +1,10 @@
 package com.codecool;
 
+import com.codecool.hasher.BetterStringHasher;
+import com.codecool.hasher.DegenerateStringHasher;
+import com.codecool.hasher.LousyStringHasher;
+import com.codecool.hasher.StringHasher;
+
 import java.io.IOException;
 import java.io.PrintStream;
 

@@ -7,7 +7,7 @@
  * each character to ensure that the characters *and* the order in which
  * the characters appear are both considered significant.
  */
-package com.codecool;
+package com.codecool.hasher;
 
 public class BetterStringHasher implements StringHasher {
 	public int hash(String s) {

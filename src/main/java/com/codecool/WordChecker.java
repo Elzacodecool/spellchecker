@@ -52,6 +52,7 @@ public class WordChecker {
    * @return A list of plausible matches
    */
 	public ArrayList getSuggestions(String word) {
-		return null;
+		return new ArrayList();
 	}
+
 }
