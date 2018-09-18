@@ -58,6 +58,7 @@ public class WordChecker {
         suggestions.addAll(getSuggestionsWithAddedCharacter(word));
         suggestions.addAll(getSuggestionsWithDeletedCharacter(word));
         suggestions.addAll(getSuggestionsWithReplacedCharacter(word));
+        suggestions.addAll(getSuggestionsWithSpace(word));
 	    return suggestions;
 	}
 
@@ -162,5 +163,30 @@ public class WordChecker {
 
         return words;
     }
+
+    private ArrayList<String> getSuggestionsWithSpace(String word) {
+	    ArrayList<String> words = new ArrayList<>();
+	    char[] wordAsChars = word.toCharArray();
+	    StringBuilder stringBuilder;
+	    String newWord;
+
+        for (int i = 1; i < word.length() ; i++) {
+            stringBuilder = new StringBuilder();
+            for (int j = 0; j < word.length(); j++) {
+                if (j == i) {
+                    stringBuilder.append(' ');
+                }
+                stringBuilder.append(wordAsChars[j]);
+            }
+            newWord = stringBuilder.toString();
+            String[] wordParts = newWord.split(" ");
+            if (wordExists(wordParts[0]) && wordExists(wordParts[1])) {
+                words.add(newWord);
+            }
+	    }
+
+        return words;
+    }
+
 
 }
